@@ -14,6 +14,7 @@ import Modal from '@mui/material/Modal';
 import { useRouter } from 'next/navigation'
 import Register from './Register';
 // import axios from 'axios';
+import OAuth2Login from 'react-simple-oauth2-login';
 
 const style = {
    position: 'absolute',
@@ -55,6 +56,9 @@ export default function Login() {
         setPassword(event.target.value);
     }
 
+   const onSuccess = (res: any) => console.log(res);
+   const onFailure = (res: any) => console.error(res);
+
     const handleLogin =  () =>{
       //   try {
       //       const response = await axios.post('http://localhost:3001/user', {
@@ -71,6 +75,8 @@ export default function Login() {
       //    }
       router.push('/', { scroll: false })
     }
+
+    
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -143,6 +149,14 @@ export default function Login() {
                   <Register />
                </Box>
             </Modal>
+            <OAuth2Login
+               authorizationUrl="https://www.facebook.com/dialog/oauth"
+               responseType="token"
+               clientId="203698399359839"
+               redirectUri="https://shop-car-24h.vercel.app/"
+               onSuccess={onSuccess}
+               onFailure={onFailure}
+            />
         </Box>
     )
   }
