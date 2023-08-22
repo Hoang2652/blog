@@ -6,7 +6,6 @@ interface Props{
 }
 
 function Logo({ imageUrl }: Props ) {
-    console.log(imageUrl)
     return ( 
         <div>
             <Link href="/">
