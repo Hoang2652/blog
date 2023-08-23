@@ -13,8 +13,10 @@ import Dash from '@/components/dash';
 import Modal from '@mui/material/Modal';
 import { useRouter } from 'next/navigation'
 import Register from './Register';
+import { Typography } from '@mui/material';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import { signIn } from 'next-auth/react';
 // import axios from 'axios';
-import OAuth2Login from 'react-simple-oauth2-login';
 
 const style = {
    position: 'absolute',
@@ -76,7 +78,9 @@ export default function Login() {
       router.push('/', { scroll: false })
     }
 
-    
+    const handleSignFacebook = () => {
+      router.push('/api/auth/signin', { scroll: false })
+    }
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -142,6 +146,10 @@ export default function Login() {
                         Register
                      </button>
                   </Box>
+                  <Box>
+                     <Typography>OR</Typography>
+                     <FacebookIcon color="primary" onClick={() => { handleSignFacebook(); } }/>
+                  </Box>
                </Card>
             </Grid>
             <Modal open={open} onClose={handleClose}>
@@ -149,14 +157,6 @@ export default function Login() {
                   <Register />
                </Box>
             </Modal>
-            <OAuth2Login
-               authorizationUrl="https://www.facebook.com/dialog/oauth"
-               responseType="token"
-               clientId="203698399359839"
-               redirectUri="https://shop-car-24h.vercel.app/"
-               onSuccess={onSuccess}
-               onFailure={onFailure}
-            />
         </Box>
     )
   }
