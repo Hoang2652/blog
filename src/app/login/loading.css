@@ -1,0 +1,26 @@
+
+.Container_loading{
+    margin: 'auto'
+}
+
+.Card_loading{
+    height: 425px;
+    min-width: 275px;
+    max-width: 375px;
+    margin: 80px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.11);
+    animation: 2s ease-in-out 0.5s infinite normal none running animation-loading;
+}
+
+@keyframes animation-loading {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 1;
+    }
+}

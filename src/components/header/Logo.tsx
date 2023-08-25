@@ -7,7 +7,7 @@ interface Props{
 
 function Logo({ imageUrl }: Props ) {
     return ( 
-        <div>
+        <div style={{ alignSelf: 'center' }}>
             <Link href="/">
                 <Image
                     src={ imageUrl }

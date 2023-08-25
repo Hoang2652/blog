@@ -1,21 +1,23 @@
 'use client'
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import TextField from '@mui/material/TextField';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Dash from '@/components/dash';
-import Modal from '@mui/material/Modal';
+import { Suspense, lazy, useState } from 'react';
+import Loading from './loading';
 import { useRouter } from 'next/navigation'
-import Register from './Register';
+const Card = lazy(() => import("@mui/material/Card"));
+const IconButton = lazy(() => import("@mui/material/IconButton"));
+const InputAdornment = lazy(() => import("@mui/material/InputAdornment"));
+const FormControl = lazy(() => import("@mui/material/FormControl"));
+const TextField = lazy(() => import("@mui/material/TextField"));
+const Visibility = lazy(() => import("@mui/icons-material/Visibility"));
+const VisibilityOff = lazy(() => import("@mui/icons-material/VisibilityOff"));
+const Box = lazy(() => import("@mui/material/Box"));
+const Grid = lazy(() => import("@mui/material/Grid"));
+const Modal = lazy(() => import("@mui/material/Modal"));
+const Dash = lazy(() => import("@/components/dash"));
+const Register = lazy(() => import("./Register"));
 import { Typography } from '@mui/material';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import { signIn } from 'next-auth/react';
+import GoogleIcon from '@mui/icons-material/Google';
+
 // import axios from 'axios';
 
 const style = {
@@ -33,7 +35,7 @@ const style = {
 };
 
 export default function Login() {
-    const [showPassword, setShowPassword] = React.useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
   
@@ -41,10 +43,10 @@ export default function Login() {
       event.preventDefault();
     };
 
-    const [username, setUsername] = React.useState('');
-    const [password, setPassword] = React.useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
@@ -58,31 +60,97 @@ export default function Login() {
         setPassword(event.target.value);
     }
 
-   const onSuccess = (res: any) => console.log(res);
-   const onFailure = (res: any) => console.error(res);
+   // const onSuccess = (res: any) => console.log(res);
+   // const onFailure = (res: any) => console.error(res);
 
-    const handleLogin =  () =>{
-      //   try {
-      //       const response = await axios.post('http://localhost:3001/user', {
-      //          username: username,
-      //          password: password,
-      //       });
-      //       if (response.status === 200) {
-      //           alert("login success")
-      //       } else {
-      //          console.error('Login failed.');
-      //       }
-      //    } catch (error) {
-      //       console.error(error);
-      //    }
-      router.push('/', { scroll: false })
-    }
+   //  const handleLogin =  () =>{
+   //    //   try {
+   //    //       const response = await axios.post('http://localhost:3001/user', {
+   //    //          username: username,
+   //    //          password: password,
+   //    //       });
+   //    //       if (response.status === 200) {
+   //    //           alert("login success")
+   //    //       } else {
+   //    //          console.error('Login failed.');
+   //    //       }
+   //    //    } catch (error) {
+   //    //       console.error(error);
+   //    //    }
+   //    router.push('/', { scroll: false })
+   //  }
 
     const handleSignFacebook = () => {
-      router.push('/api/auth/signin', { scroll: false })
+      // router.push('/api/auth/signin', { scroll: false })
+      console.log('login facebook');
     }
 
+   //  React.useEffect(() => {
+   //    fetch('http://127.0.0.1:8000/api/login-execute', {
+   //       method: 'POST',
+   //       headers: {
+   //          'Content-Type': 'application/json',
+   //          'X-CSRF-TOKEN': csrfToken 
+   //       },
+   //       body: JSON.stringify({
+   //          username: 'hoang123',
+   //          password: 'hoang123'
+   //       })
+   //    })
+   //    .then(response => response.json())
+   //    .then(data => {
+   //      console.log(">>data: ",data.user);
+   //    })
+   //    .catch(error => {
+   //      console.error('Error checking login:', error);
+   //    });
+   //  }, []);
+
+   const handleLogin = async () => {
+      try {
+         fetch('http://127.0.0.1:8000/sanctum/csrf-cookie', {
+            method: 'GET',
+            credentials: 'same-origin' 
+         }).then((response) => {
+            // const csrfToken = response.headers.get('X-CSRF-TOKEN');
+         
+            // if (csrfToken !== null) {
+            // Sau khi có CSRF token, thực hiện yêu cầu POST
+            fetch('http://127.0.0.1:8000/api/login-execute', {
+               method: 'POST',
+               credentials: 'same-origin', 
+               headers: {
+                  'Content-Type': 'application/json',
+                  // 'X-CSRF-TOKEN': csrfToken
+               },
+               body: JSON.stringify({
+                  username: 'hoang123',
+                  password: 'hoang123'
+               })
+            }).then((res) => res.json())
+               .then((data) => {
+                  if (data.status === 200) {
+                   console.log("win")
+                  } else {
+                  // Xử lý lỗi
+                  console.log("win111")
+                  }
+               });
+            // } else {
+            // console.log("null")
+            // }
+         });
+ 
+      }
+      catch (error) {
+         console.error('An error occurred:', error);
+      }
+    };
+
+  
+
     return (
+      <Suspense fallback={<Loading />}>
         <Box sx={{ flexGrow: 1 }}>
             <Grid item xs={6} md={5} margin="auto">
                <Card
@@ -90,54 +158,54 @@ export default function Login() {
                      margin: 'auto',
                      minWidth: 275,
                      maxWidth: 375,
-                     mb: 10,
+                     m: 10,
                      boxShadow: '0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%)',
                      borderRadius: 2,
                   }}
-               >
-                    <FormControl sx={{ m: 2, width: '35ch', mt: 4 }} variant="outlined">
-                        <TextField
-                           id="outlined-multiline-flexible"
-                           label="User Name"
-                           multiline
-                           maxRows={4}
-                           value={username}
-                           onChange={handleUsernameChange}
-                        />
-                     </FormControl>
-                     <FormControl sx={{ m: 2, width: '35ch' }} variant="outlined">
-                        <TextField
-                           id="outlined-adornment-password"
-                           type={showPassword ? 'text' : 'password'}
-                           value={password}
-                           onChange={handlePasswordChange}
-                           InputProps={{
-                              endAdornment: (
-                                 <InputAdornment position="end">
-                                    <IconButton
-                                       aria-label="toggle password visibility"
-                                       onClick={handleClickShowPassword}
-                                       onMouseDown={handleMouseDownPassword}
-                                       edge="end"
-                                    >
-                                       {showPassword ? <VisibilityOff /> : <Visibility />}
-                                    </IconButton>
-                                 </InputAdornment>
-                              ),
-                           }}
-                           label="Password"
-                        />
-                     </FormControl>
-                    <Box sx={{ textAlign: 'center' }}>
-                        <button className='text-white rounded bg-blue-700/90 uppercase p-2.5 font-bold text-sm' onClick={handleLogin}>
-                            Login
-                        </button>
-                    </Box>
-                    <Dash />
-                    <Box sx={{ textAlign: 'center' }}>
-                        <button className='text-blue-700/90 p-1.5  rounded-sm uppercase font-bold text-sm hover:bg-sky-50'>forgot password</button>
-                    </Box>
-                    <Box sx={{ textAlign: 'center',mb: 4 }}>
+               > 
+                  <FormControl sx={{ m: 2, width: '35ch', mt: 4 }} variant="outlined">
+                     <TextField
+                        id="outlined-multiline-flexible"
+                        label="User Name"
+                        multiline
+                        maxRows={4}
+                        value={username}
+                        onChange={handleUsernameChange}
+                     />
+                  </FormControl>
+                  <FormControl sx={{ m: 2, width: '35ch' }} variant="outlined">
+                     <TextField
+                        id="outlined-adornment-password"
+                        type={showPassword ? 'text' : 'password'}
+                        value={password}
+                        onChange={handlePasswordChange}
+                        InputProps={{
+                           endAdornment: (
+                              <InputAdornment position="end">
+                                 <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                    edge="end"
+                                 >
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                 </IconButton>
+                              </InputAdornment>
+                           ),
+                        }}
+                        label="Password"
+                     />
+                  </FormControl>
+                  <Box sx={{ textAlign: 'center' }}>
+                     <button className='text-white rounded bg-blue-700/90 uppercase p-2.5 font-bold text-sm' onClick={() => handleLogin()}>
+                           Login
+                     </button>
+                  </Box>
+                  <Dash />
+                  <Box sx={{ textAlign: 'center' }}>
+                     <button className='text-blue-700/90 p-1.5  rounded-sm uppercase font-bold text-sm hover:bg-sky-50'>forgot password</button>
+                  </Box>
+                  <Box sx={{ textAlign: 'center',mb: 1 }}>
                      Don't have an account?
                      <button 
                      className='text-blue-700/90 p-1.5 rounded-sm uppercase font-bold text-sm hover:bg-sky-50'
@@ -146,9 +214,22 @@ export default function Login() {
                         Register
                      </button>
                   </Box>
-                  <Box>
-                     <Typography>OR</Typography>
-                     <FacebookIcon color="primary" onClick={() => { handleSignFacebook(); } }/>
+                  <Box sx={{ textAlign: 'center', mb: 2 }}>
+                     <Box sx={{ textAlign: 'center', display: 'flex', mb: 1}}> 
+                        <Dash width='40%' />
+                        <Typography sx={{ alignSelf: 'center' }}>OR</Typography>
+                        <Dash width='40%' />
+                     </Box>
+                     <Box sx={{ textAlign: 'center', display: 'flex', justifyContent: 'space-around'}}>
+                        <button className="flex bg-blue-700/90 p-1.5 rounded w-5/12 justify-center">
+                           <FacebookIcon sx={{ color: 'white', mr: 0.5 }} onClick={() => { handleSignFacebook(); } }/>
+                           <Typography color="white">FACEBOOK</Typography>
+                        </button>
+                        <button className="flex bg-red-600/90 p-1.5 rounded w-5/12 justify-center">
+                           <GoogleIcon sx={{ color: 'white', mr: 0.5 }} onClick={() => { handleSignFacebook(); } }/>
+                           <Typography color="white">Google</Typography>
+                        </button>
+                     </Box>
                   </Box>
                </Card>
             </Grid>
@@ -158,5 +239,6 @@ export default function Login() {
                </Box>
             </Modal>
         </Box>
+      </Suspense>
     )
   }

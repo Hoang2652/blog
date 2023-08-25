@@ -1,7 +1,15 @@
 import './dash.css'
 
-function Dash() {
-    return <div className="dash"></div>;
-}
-
+interface DashProps {
+    width?: string | number;
+  }
+  
+function Dash ({ width } : DashProps) {
+    const dashStyle = {
+      width: typeof width === 'number' ? `${width}px` : width
+    };
+  
+    return <div className="dash" style={dashStyle}></div>;
+  };
+  
 export default Dash;
