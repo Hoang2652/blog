@@ -2,7 +2,7 @@
 import dynamic from 'next/dynamic'
 const Box = dynamic(() => import("@mui/material/Box"));
 const Typography = dynamic(() => import("@mui/material/Typography"));
-const Search = dynamic(() => import("@/components/Search"));
+const Search = dynamic(() => import("@/components/search"));
 
 export default function Home() {
   return (
