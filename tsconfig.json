@@ -26,6 +26,6 @@
       "@/data/*": ["data/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/header/Logo.tsx", "src/components/autocomplete/index.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/header/Logo.tsx", "src/components/input/autocomplete/index.tsx"],
   "exclude": ["node_modules"]
 }

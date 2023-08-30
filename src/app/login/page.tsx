@@ -151,7 +151,7 @@ export default function Login() {
                      margin: 'auto',
                      minWidth: 275,
                      maxWidth: 375,
-                     m: 10,
+                     m: '150px',
                      boxShadow: '0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%)',
                      borderRadius: 2,
                   }}

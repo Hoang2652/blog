@@ -5,8 +5,9 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import dataCar from '@/data/searchCar.js';
-import AutoComplete from "@/components/autocomplete";
-
+import AutoComplete from "@/components/input/autocomplete";
+import List from "@/components/input/list";
+import SliderComponent from '@/components/input/slider';
 
 function index() {
 
@@ -31,10 +32,10 @@ function index() {
                         <AutoComplete options={dataCar} />
                     </TabPanel>
                     <TabPanel value="2" sx={{ padding: '10px 0' }}>
-                        <AutoComplete options={dataCar} />
+                        <List options={dataCar} />
                     </TabPanel>
                     <TabPanel value="3" sx={{ padding: '10px 0' }}>
-                        <AutoComplete options={dataCar} />
+                        <SliderComponent />
                     </TabPanel>
                 </TabContext>
             </Box>

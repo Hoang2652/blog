@@ -9,7 +9,7 @@ interface NavMenuProps{
 }
 
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
-    <Tooltip {...props} arrow classes={{ popper: className }} />
+    <Tooltip {...props} classes={{ popper: className }} />
   ))(({ theme }) => ({
     [`& .${tooltipClasses.tooltip}`]: {
       backgroundColor: '#394144',
@@ -18,6 +18,16 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
       padding: '8px 0 8px 0',
       borderRadius: "10px",
     },
+    [`& .MuiTooltip-popperArrow:before`]: {
+        content: '""',
+        position: "absolute",
+        top: "-10px",
+        left: "50%",
+        transform: "translateX(-50%)",
+        width: "20px",
+        height: "20px",
+        background: `url("/csvg.svg")`,  
+      },
   }));
 function NavMenu() {
 

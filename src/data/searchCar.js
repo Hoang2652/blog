@@ -8,7 +8,8 @@ const dataCar = [
   "Toyota",
   "Toyota RAV4",
   "Tesla",
-  "Traction Control"
+  "Traction Control",
+  "BMW"
 ];
 
 export default dataCar;

@@ -1,8 +1,9 @@
 import './globals.css'
+import dynamic from 'next/dynamic'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { Suspense, lazy } from 'react'
-const Header = lazy(() => import("@/components/header"));
+import { Suspense } from 'react'
+const Header = dynamic(() => import("@/components/header"));
 import Container from '@mui/material/Container';
 import Loading from './loading';
 
