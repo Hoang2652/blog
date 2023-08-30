@@ -1,19 +1,20 @@
 'use client'
-import { Suspense, lazy, useState } from 'react';
+import { Suspense, useState } from 'react';
 import Loading from './loading';
 import { useRouter } from 'next/navigation'
-const Card = lazy(() => import("@mui/material/Card"));
-const IconButton = lazy(() => import("@mui/material/IconButton"));
-const InputAdornment = lazy(() => import("@mui/material/InputAdornment"));
-const FormControl = lazy(() => import("@mui/material/FormControl"));
-const TextField = lazy(() => import("@mui/material/TextField"));
-const Visibility = lazy(() => import("@mui/icons-material/Visibility"));
-const VisibilityOff = lazy(() => import("@mui/icons-material/VisibilityOff"));
-const Box = lazy(() => import("@mui/material/Box"));
-const Grid = lazy(() => import("@mui/material/Grid"));
-const Modal = lazy(() => import("@mui/material/Modal"));
-const Dash = lazy(() => import("@/components/dash"));
-const Register = lazy(() => import("./Register"));
+import dynamic from 'next/dynamic'
+const Card = dynamic(() => import("@mui/material/Card"));
+const IconButton = dynamic(() => import("@mui/material/IconButton"));
+const InputAdornment = dynamic(() => import("@mui/material/InputAdornment"));
+const FormControl = dynamic(() => import("@mui/material/FormControl"));
+const TextField = dynamic(() => import("@mui/material/TextField"));
+const Visibility = dynamic(() => import("@mui/icons-material/Visibility"));
+const VisibilityOff = dynamic(() => import("@mui/icons-material/VisibilityOff"));
+const Box = dynamic(() => import("@mui/material/Box"));
+const Grid = dynamic(() => import("@mui/material/Grid"));
+const Modal = dynamic(() => import("@mui/material/Modal"));
+const Dash = dynamic(() => import("@/components/dash"));
+const Register = dynamic(() => import("./Register"));
 import { Typography } from '@mui/material';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
@@ -106,41 +107,33 @@ export default function Login() {
    //    });
    //  }, []);
 
-   const handleLogin = async () => {
+   const handleLogin =  () => {
       try {
-         fetch('http://127.0.0.1:8000/sanctum/csrf-cookie', {
-            method: 'GET',
-            credentials: 'same-origin' 
-         }).then((response) => {
-            // const csrfToken = response.headers.get('X-CSRF-TOKEN');
-         
-            // if (csrfToken !== null) {
-            // Sau khi có CSRF token, thực hiện yêu cầu POST
-            fetch('http://127.0.0.1:8000/api/login-execute', {
-               method: 'POST',
-               credentials: 'same-origin', 
-               headers: {
-                  'Content-Type': 'application/json',
-                  // 'X-CSRF-TOKEN': csrfToken
-               },
-               body: JSON.stringify({
-                  username: 'hoang123',
-                  password: 'hoang123'
-               })
-            }).then((res) => res.json())
-               .then((data) => {
-                  if (data.status === 200) {
-                   console.log("win")
-                  } else {
-                  // Xử lý lỗi
-                  console.log("win111")
-                  }
-               });
-            // } else {
-            // console.log("null")
-            // }
-         });
- 
+         console.log('---------> vao 1')
+         fetch('http://127.0.0.1:8000/api/login-execute', {
+            method: 'POST',
+            credentials: 'same-origin', 
+            headers: {
+               'Content-Type': 'application/json',
+               'X-CSRF-TOKEN': 'asdasdasdsadsadsa'
+            },
+            body: JSON.stringify({
+               username: 'hoang123',
+               password: 'hoang123'
+            })
+         }).then((res) => res.json())
+            .then((data) => {
+               if (data.status === 200) {
+                  console.log("win")
+               } else {
+               // Xử lý lỗi
+               console.log("win111")
+               }
+            });
+         // }
+         // else {
+         // console.log("null")
+         // }
       }
       catch (error) {
          console.error('An error occurred:', error);
@@ -151,7 +144,7 @@ export default function Login() {
 
     return (
       <Suspense fallback={<Loading />}>
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ display: 'flex', flexGrow: 1 }}>
             <Grid item xs={6} md={5} margin="auto">
                <Card
                   sx={{

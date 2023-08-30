@@ -23,7 +23,7 @@ export default function RootLayout({
       <Suspense fallback={<Loading />}>
         <body className={inter.className}>
           <Header />
-          <Container maxWidth="sm">
+          <Container maxWidth="lg">
             {children}
           </Container>
         </body>
