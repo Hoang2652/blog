@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic'
 const Box = dynamic(() => import("@mui/material/Box"));
 const Typography = dynamic(() => import("@mui/material/Typography"));
 const Search = dynamic(() => import("@/components/search"));
+const Media = dynamic(() => import("@/components/media"));
 
 export default function Home() {
   return (
@@ -16,6 +17,9 @@ export default function Home() {
           </h1>
           <Box>
             <Search />
+          </Box>
+          <Box>
+            <Media />
           </Box>
         </Box>
         <Box>a</Box>
