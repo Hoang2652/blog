@@ -2,6 +2,9 @@
     width: 650px;
     border: 1px solid #d4d4d4;
     border-radius: 33px;
+    position: absolute;
+    z-index: 1;
+    background-color: #fff;
 }
 
 .autocomplete_choose{

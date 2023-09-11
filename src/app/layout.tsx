@@ -4,7 +4,6 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Suspense } from 'react'
 const Header = dynamic(() => import("@/components/header"));
-import Container from '@mui/material/Container';
 import Loading from './loading';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -24,9 +23,7 @@ export default function RootLayout({
       <Suspense fallback={<Loading />}>
         <body className={inter.className}>
           <Header />
-          <Container maxWidth="lg">
             {children}
-          </Container>
         </body>
       </Suspense>
     </html>

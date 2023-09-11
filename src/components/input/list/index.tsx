@@ -9,8 +9,8 @@ interface ListProps {
 
 const List: React.FC<ListProps> = ({ options = [] }) => {
 
-    const [value, setValue] = useState<string>("");
     const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
+    const [checkedOptions, setCheckedOptions] = useState<string[]>([]);
 
     const autocompleteRef = useRef<HTMLDivElement>(null);
 
@@ -28,9 +28,19 @@ const List: React.FC<ListProps> = ({ options = [] }) => {
         };
     }, []);
 
-    const handleSuggestionClick = (suggestion: string) => {
-        value.length === 0 ? setValue(suggestion) : setValue((prev) => prev + ', '+ suggestion)
-    };
+    const handleSuggestionClick = (option: string) => {
+        const isChecked = checkedOptions.includes(option);
+    
+        if (isChecked) {
+          setCheckedOptions(checkedOptions.filter(item => item !== option));
+        } else {
+          setCheckedOptions([...checkedOptions, option]);
+        }
+    }
+
+    const isOptionChecked = (option: string) => {
+        return checkedOptions.includes(option);
+      }
 
     return (
         <div className="autocomplete" ref={autocompleteRef}>
@@ -44,7 +54,7 @@ const List: React.FC<ListProps> = ({ options = [] }) => {
                     className="autocomplete_choose"
                     style={{ color: showSuggestions ? '' : '#9ca0a1' }}
                 >
-                    {value.length === 0 ? "Add as many as you'd like..." : value}
+                    {checkedOptions.length === 0 ? "Add as many as you'd like..." : checkedOptions.join(', ')}
                 </div>
                 <div className="list_icon_wrap search_icon">
                     <SearchIcon sx={{ fontSize: '40px', margin: 'auto', color: 'white'}}/>
@@ -54,8 +64,8 @@ const List: React.FC<ListProps> = ({ options = [] }) => {
                 <div className="suggestions show" style={{ marginLeft: '3.75rem'}}>
                     {options.map(option => (
                         <div className="checkbox-input" onClick={() => handleSuggestionClick(option)} key={option}>
-                            <input type="checkbox"></input>
-                            <label>
+                            <input type="checkbox" checked={checkedOptions.includes(option)} readOnly />
+                            <label style={{ fontWeight: isOptionChecked(option) ? 'bold' : 'normal' }}>
                                 {option} 
                             </label>
                         </div>

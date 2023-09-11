@@ -156,6 +156,8 @@ export default function Login() {
                      borderRadius: 2,
                   }}
                > 
+               <form>
+                  {/* {{ csrf_field() }} */}
                   <FormControl sx={{ m: 2, width: '35ch', mt: 4 }} variant="outlined">
                      <TextField
                         id="outlined-multiline-flexible"
@@ -224,6 +226,7 @@ export default function Login() {
                         </button>
                      </Box>
                   </Box>
+                  </form>
                </Card>
             </Grid>
             <Modal open={open} onClose={handleClose}>

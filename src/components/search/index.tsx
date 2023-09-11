@@ -28,13 +28,13 @@ function index() {
                             <Tab label="PRICE" value="3" sx={{ fontWeight: 700,}}/>
                         </TabList>
                     </Box>
-                    <TabPanel value="1" sx={{ padding: '10px 0' }}>
+                    <TabPanel value="1" sx={{ padding: '10px 0', height: '90px'}}>
                         <AutoComplete options={dataCar} />
                     </TabPanel>
-                    <TabPanel value="2" sx={{ padding: '10px 0' }}>
+                    <TabPanel value="2" sx={{ padding: '10px 0', height: '90px' }}>
                         <List options={dataCar} />
                     </TabPanel>
-                    <TabPanel value="3" sx={{ padding: '10px 0' }}>
+                    <TabPanel value="3" sx={{ padding: '10px 0', height: '90px' }}>
                         <SliderComponent />
                     </TabPanel>
                 </TabContext>
