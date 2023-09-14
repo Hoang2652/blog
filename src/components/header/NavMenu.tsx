@@ -35,7 +35,7 @@ function NavMenu() {
     const [shopCars, setShopCars] = React.useState(['Why Us?', 'CarShop Certified', 'Lifetime Engine Guarantee', 'Warranty Programs', 'CarShop CarSense Tradition ', 'Ignition Stories '])
     
     return(
-       <div className="relative hidden lg:flex items-center">
+       <div className="relative lg:flex items-center">
             <nav className="text-sm leading-6 font-semibold text-slate-700 dark:text-slate-200">
                 <ul className="flex space-x-8">
                     <li className="relative">

@@ -16,7 +16,7 @@ function modal({ isVisible, onClose, children }: ModalProps): JSX.Element | null
     }
 
     return ( 
-        <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center" id="wrapper" onClick={handleClose}>
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center" id="wrapper" onClick={handleClose}>
             <div className="w-[800px] flex flex-col">
                 <button className="text-white text-xl place-self-end " onClick={() => onClose()}>
                     <CancelIcon sx={{ color: '#394144', fontSize: '30px', marginBottom: '10px', marginRight: '-30px', '&:hover': {color: '#0284C7',},}} />

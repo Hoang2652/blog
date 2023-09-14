@@ -18,6 +18,7 @@ const Register = dynamic(() => import("./Register"));
 import { Typography } from '@mui/material';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
+import './loading.css'
 
 // import axios from 'axios';
 
@@ -157,7 +158,6 @@ export default function Login() {
                   }}
                > 
                <form>
-                  {/* {{ csrf_field() }} */}
                   <FormControl sx={{ m: 2, width: '35ch', mt: 4 }} variant="outlined">
                      <TextField
                         id="outlined-multiline-flexible"

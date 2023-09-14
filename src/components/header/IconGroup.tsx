@@ -16,8 +16,6 @@ const StyledIcon = styled('div')(({ theme }) => ({
 
 function IconGroup() {
 
-
-
     return ( 
         <div className="flex flex-row justify-end items-center">
             {/* <Link href={`/login`} className='text-white rounded bg-blue-700/90 uppercase p-2.5 font-bold text-sm'>Login</Link>
