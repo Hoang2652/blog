@@ -1,0 +1,28 @@
+.slick-arrow.slick-next:before {
+    content: "";
+}
+  
+.slick-arrow.slick-prev:before {
+    content: "";
+}
+
+.slick-slider .slick-arrow {
+  opacity: 0; 
+  transition: opacity 0.3s ease-in-out; 
+}
+
+.slick-slider:hover .slick-arrow {
+  opacity: 1; 
+}
+
+.slick-arrow{
+    background: rgba(57,64,68,0.5) !important
+}
+
+.slick-arrow:hover{
+    background: rgba(57,64,68,1) !important
+}
+
+.slider-tabs{
+    margin: 0.5rem 0
+}

@@ -9,8 +9,8 @@ import Loading from './loading';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Blog',
-  description: 'Read and write blogs',
+  title: 'ShopCar',
+  description: 'ShopCar',
 }
 
 export default function RootLayout({
