@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import TextField from '@mui/material/TextField';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import FormControl from '@mui/material/FormControl';
-import Box from '@mui/material/Box';
-import Dash from '@/components/dash';
+'use client'
+import dynamic from 'next/dynamic'
+import React, { useState, Fragment } from 'react';
+const IconButton = dynamic(() => import("@mui/material/IconButton"));
+const InputAdornment = dynamic(() => import("@mui/material/InputAdornment"));
+const TextField = dynamic(() => import("@mui/material/TextField"));
+const Visibility = dynamic(() => import("@mui/icons-material/Visibility"));
+const VisibilityOff = dynamic(() => import("@mui/icons-material/VisibilityOff"));
+const FormControl = dynamic(() => import("@mui/material/FormControl"));
+const Box = dynamic(() => import("@mui/material/Box"));
+const Dash = dynamic(() => import("@/components/dash"));
 
 function Register() {
 
@@ -19,7 +21,7 @@ function Register() {
     };
 
     return ( 
-        <>
+        <Fragment>
         <h3 style={{ textAlign: 'center', marginTop: '10px' }}>Register</h3>
         <Dash />
         <form className='text-center'>
@@ -134,7 +136,7 @@ function Register() {
                 </button>
             </Box>
         </form>
-        </>
+        </Fragment>
     );
 }
 

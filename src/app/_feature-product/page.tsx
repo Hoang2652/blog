@@ -1,5 +1,5 @@
 'use client'
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -57,12 +57,33 @@ function SamplePrevArrow(props: any) {
 }
 
 const Feature = () => {
+
+  const [centerPadding, setCenterPadding] = useState("200px");
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        setCenterPadding("100px");
+      } else {
+        setCenterPadding("200px");
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
     
   const settings = {
     className: "center",
     centerMode: true,
     infinite: true,
-    centerPadding: "200px",
+    centerPadding: centerPadding,
     slidesToShow: 3,
     slidesToScroll: 1,
     // autoplay: true,

@@ -14,7 +14,7 @@ const Box = dynamic(() => import("@mui/material/Box"));
 const Grid = dynamic(() => import("@mui/material/Grid"));
 const Modal = dynamic(() => import("@mui/material/Modal"));
 const Dash = dynamic(() => import("@/components/dash"));
-const Register = dynamic(() => import("./Register"));
+const Register = dynamic(() => import("./_register"), { ssr: false });
 import { Typography } from '@mui/material';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GoogleIcon from '@mui/icons-material/Google';
@@ -23,7 +23,7 @@ import './loading.css'
 // import axios from 'axios';
 
 const style = {
-   position: 'absolute',
+   position: 'absolute' as 'absolute',
    top: '50%',
    left: '50%',
    transform: 'translate(-50%, -50%)',
@@ -62,79 +62,30 @@ export default function Login() {
         setPassword(event.target.value);
     }
 
-   // const onSuccess = (res: any) => console.log(res);
-   // const onFailure = (res: any) => console.error(res);
-
-   //  const handleLogin =  () =>{
-   //    //   try {
-   //    //       const response = await axios.post('http://localhost:3001/user', {
-   //    //          username: username,
-   //    //          password: password,
-   //    //       });
-   //    //       if (response.status === 200) {
-   //    //           alert("login success")
-   //    //       } else {
-   //    //          console.error('Login failed.');
-   //    //       }
-   //    //    } catch (error) {
-   //    //       console.error(error);
-   //    //    }
-   //    router.push('/', { scroll: false })
-   //  }
-
     const handleSignFacebook = () => {
-      // router.push('/api/auth/signin', { scroll: false })
       console.log('login facebook');
     }
 
-   //  React.useEffect(() => {
-   //    fetch('http://127.0.0.1:8000/api/login-execute', {
-   //       method: 'POST',
-   //       headers: {
-   //          'Content-Type': 'application/json',
-   //          'X-CSRF-TOKEN': csrfToken 
-   //       },
-   //       body: JSON.stringify({
-   //          username: 'hoang123',
-   //          password: 'hoang123'
-   //       })
-   //    })
-   //    .then(response => response.json())
-   //    .then(data => {
-   //      console.log(">>data: ",data.user);
-   //    })
-   //    .catch(error => {
-   //      console.error('Error checking login:', error);
-   //    });
-   //  }, []);
-
    const handleLogin =  () => {
       try {
-         console.log('---------> vao 1')
-         fetch('http://127.0.0.1:8000/api/login-execute', {
+         fetch('http://127.0.0.1:8000/api/register', {
             method: 'POST',
-            credentials: 'same-origin', 
             headers: {
                'Content-Type': 'application/json',
-               'X-CSRF-TOKEN': 'asdasdasdsadsadsa'
+               'Accept': 'application/json',
             },
             body: JSON.stringify({
-               username: 'hoang123',
-               password: 'hoang123'
+               username: 'hoang112',
+               password: 'hoang112'
             })
          }).then((res) => res.json())
             .then((data) => {
-               if (data.status === 200) {
+               if (data.status === 201) {
                   console.log("win")
                } else {
-               // Xử lý lỗi
                console.log("win111")
                }
             });
-         // }
-         // else {
-         // console.log("null")
-         // }
       }
       catch (error) {
          console.error('An error occurred:', error);
@@ -147,6 +98,7 @@ export default function Login() {
       <Suspense fallback={<Loading />}>
         <Box sx={{ display: 'flex', flexGrow: 1 }}>
             <Grid item xs={6} md={5} margin="auto">
+               <form>
                <Card
                   sx={{
                      margin: 'auto',
@@ -157,7 +109,6 @@ export default function Login() {
                      borderRadius: 2,
                   }}
                > 
-               <form>
                   <FormControl sx={{ m: 2, width: '35ch', mt: 4 }} variant="outlined">
                      <TextField
                         id="outlined-multiline-flexible"
@@ -170,7 +121,7 @@ export default function Login() {
                   </FormControl>
                   <FormControl sx={{ m: 2, width: '35ch' }} variant="outlined">
                      <TextField
-                        id="outlined-adornment-password"
+                        id="login-password"
                         type={showPassword ? 'text' : 'password'}
                         value={password}
                         onChange={handlePasswordChange}
@@ -189,6 +140,7 @@ export default function Login() {
                            ),
                         }}
                         label="Password"
+                        autoComplete='password'
                      />
                   </FormControl>
                   <Box sx={{ textAlign: 'center' }}>
@@ -203,8 +155,11 @@ export default function Login() {
                   <Box sx={{ textAlign: 'center',mb: 1 }}>
                      Don't have an account?
                      <button 
-                     className='text-blue-700/90 p-1.5 rounded-sm uppercase font-bold text-sm hover:bg-sky-50'
-                     onClick={handleOpen} 
+                        className='text-blue-700/90 p-1.5 rounded-sm uppercase font-bold text-sm hover:bg-sky-50'
+                        onClick={(e) => {
+                           e.preventDefault(); // Add this line to prevent default form submission
+                           handleOpen();
+                        }} 
                      >
                         Register
                      </button>
@@ -226,13 +181,15 @@ export default function Login() {
                         </button>
                      </Box>
                   </Box>
-                  </form>
                </Card>
+               </form>
             </Grid>
-            <Modal open={open} onClose={handleClose}>
-               <Box sx={style}>
-                  <Register />
-               </Box>
+            <Modal open={open} onClose={handleClose} >
+               <div>
+                  <Box sx={style}>
+                     <Register />
+                  </Box>
+               </div>
             </Modal>
         </Box>
       </Suspense>
